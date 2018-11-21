@@ -1,0 +1,31 @@
+{
+  "name": "mungbean",
+  "version": "1.0.0",
+  "description": "A simple JSON munger",
+  "main": "./index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules index.mjs"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesseflorig/mungbean.git"
+  },
+  "keywords": [
+    "JSON",
+    "munge"
+  ],
+  "author": "Jesse Florig",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jesseflorig/mungbean/issues"
+  },
+  "homepage": "https://github.com/jesseflorig/mungbean#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "lodash": "^4.17.11"
+  }
+}
