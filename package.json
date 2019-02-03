@@ -2,10 +2,10 @@
   "name": "mungbean",
   "version": "1.0.0",
   "description": "A simple JSON munger",
-  "main": "./index.mjs",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-modules index.mjs"
+    "start": "nodemon index.js"
   },
   "engines": {
     "node": ">=8"
@@ -24,8 +24,8 @@
     "url": "https://github.com/jesseflorig/mungbean/issues"
   },
   "homepage": "https://github.com/jesseflorig/mungbean#readme",
-  "dependencies": {},
-  "devDependencies": {
-    "lodash": "^4.17.11"
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "nodemon": "^1.18.3"
   }
 }
