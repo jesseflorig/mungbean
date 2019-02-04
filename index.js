@@ -1,30 +1,28 @@
 /* 
- *  Javascript Scratchpad 
- *  Save your changes to restart the server
+ *  Save your changes to rerun the munger
  *
  */
 
 const { map } = require("lodash");
 const { Cards } = require("netrunner-json");
+const { Mungbean, addField, capVal, genVal } = require("./mungbean");
 
-const mung = {};
+const newId = genVal({
+  fields: ["pack", "position"],
+  delimiter: "-"
+});
 
 const cfg = {
   input: Cards,
   output: [],
-  strategies: []
+  strategies: [
+    addField("id", newId),
+    addField("test", "test"),
+    capVal("faction"),
+    capVal("side"),
+    capVal("type")
+  ]
 };
 
-const Mungbean = ({ input, output, strategies }) => {
-  map(input, item => {
-    let mungedItem = item;
-    map(strategies, strat => {
-      mungedItem = strat(item);
-    });
-    output.push(mungedItem);
-  });
-
-  console.log(output[0]);
-};
-
-Mungbean(cfg);
+const munged = Mungbean(cfg);
+console.log(munged[0]);
