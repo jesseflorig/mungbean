@@ -2,11 +2,6 @@
 //   field - a key/value pair
 //   key - reference for a value
 //   value - contents of a key
-//
-// TODO: methods to add
-// change a key
-// remove a key
-//
 const { map } = require("lodash");
 const { dev, err, hr, log, plur } = require("./utils");
 
