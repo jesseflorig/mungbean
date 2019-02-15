@@ -27,10 +27,7 @@ const Mungbean = config => {
   // Munge processor
   let results = [];
   map(input, item => {
-    let mungedItem = item;
-    map(strategies, strat => {
-      mungedItem = strat(mungedItem);
-    });
+    let mungedItem = flow(strategies)(item);
     results.push(mungedItem);
   });
 
@@ -41,11 +38,38 @@ const Mungbean = config => {
   dev(results[0], env);
 };
 
-// Add a new key and value
+const flow = fns => item => {
+  map(fns, fn => {
+    item = fn(item);
+  });
+  return item;
+};
+
+// Add a new field
 const addField = (newKey, val) => item => {
   let newItem = item;
-  newItem[newKey] = typeof val === "function" ? val(item) : val;
+  if (typeof item[newKey] !== "undefined") {
+    err(`Field '${newkey}' already exists - skipping add`);
+  } else {
+    newItem[newKey] = typeof val === "function" ? val(item) : val;
+  }
   return newItem;
+};
+
+// Remove a field
+const delField = key => item => {
+  let newItem = item;
+  if (typeof item[key] === "undefined") {
+    err(`Field '${key}' doesn't exist - skipping delete`);
+  } else {
+    delete newItem[key];
+  }
+  return newItem;
+};
+
+// Change a field key
+const chgKey = (oldKey, newKey) => item => {
+  return flow([addField(newKey, item[oldKey]), delField(oldKey)])(item);
 };
 
 // Generate a value from one or more existing fields
@@ -65,14 +89,14 @@ const modField = fn => field => item => {
   return item;
 };
 
-// Uppercase a field
+// Uppercase a field value
 const upperVal = field => {
   return modField(input => {
     return input.toUpperCase();
   })(field);
 };
 
-// Lowercase a field
+// Lowercase a field value
 const lowerVal = field => {
   return modField(input => {
     return input.toLowerCase();
@@ -90,7 +114,9 @@ module.exports = {
   Mungbean,
   addField,
   capVal,
+  chgKey,
   concatVals,
+  delField,
   lowerVal,
   modField,
   upperVal

@@ -1,7 +1,7 @@
 const dev = (msg, env) => {
   if (env === "dev") {
     if (typeof msg === "object") {
-      msg = JSON.stringify(msg, null, 2);
+      return log(msg);
     }
     console.info(`DEV: ${msg}`);
   }

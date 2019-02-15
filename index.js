@@ -3,6 +3,7 @@ const {
   Mungbean,
   addField,
   capVal,
+  chgKey,
   concatVals,
   lowerVal
 } = require("./mungbean");
@@ -18,7 +19,8 @@ const strat = [
   addField("id", newId),
   lowerVal("id"),
   addField("test", "test"),
-  capVal("occupation")
+  capVal("occupation"),
+  chgKey("occupation", "job")
 ];
 
 const cfg = {
