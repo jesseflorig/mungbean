@@ -8,17 +8,37 @@
 // remove a key
 //
 const { map } = require("lodash");
+const { dev, err, hr, log, plur } = require("./utils");
+
+const defaultCfg = {
+  env: "dev",
+  input: null,
+  output: "./output"
+};
 
 // Apply a strategy to an input to create an output
-const Mungbean = ({ input, output, strategies }) => {
+const Mungbean = config => {
+  // Merge default config with passed in config
+  const cfg = Object.assign(defaultCfg, config);
+  const { env, input, output, strategies } = cfg;
+
+  dev("Running DEV munge", env);
+
+  // Munge processor
+  let results = [];
   map(input, item => {
     let mungedItem = item;
     map(strategies, strat => {
       mungedItem = strat(mungedItem);
     });
-    output.push(mungedItem);
+    results.push(mungedItem);
   });
-  return output;
+
+  // Finish
+  hr();
+  const inCount = input.length;
+  log(`Finished processing ${inCount} ${plur("record", inCount)}`);
+  dev(results[0], env);
 };
 
 // Add a new key and value
@@ -29,7 +49,7 @@ const addField = (newKey, val) => item => {
 };
 
 // Generate a value from one or more existing fields
-const genVal = ({ fields, delimiter, prefix, postfix }) => item => {
+const concatVals = ({ fields, delimiter, prefix, postfix }) => item => {
   let fieldVals = map(fields, f => item[f]);
   fieldVals = prefix ? [prefix, ...fieldVals] : fieldVals;
   fieldVals = postfix ? [...fieldVals, postfix] : fieldVals;
@@ -70,7 +90,7 @@ module.exports = {
   Mungbean,
   addField,
   capVal,
-  genVal,
+  concatVals,
   lowerVal,
   modField,
   upperVal

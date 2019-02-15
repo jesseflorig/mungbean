@@ -1,28 +1,31 @@
-/* 
- *  Save your changes to rerun the munger
- *
- */
+const { data } = require("./sample-data");
+const {
+  Mungbean,
+  addField,
+  capVal,
+  concatVals,
+  lowerVal
+} = require("./mungbean");
 
-const { map } = require("lodash");
-const { Cards } = require("netrunner-json");
-const { Mungbean, addField, capVal, genVal } = require("./mungbean");
-
-const newId = genVal({
-  fields: ["pack", "position"],
+// Strategy Helpers
+const newId = concatVals({
+  fields: ["firstName", "lastName"],
   delimiter: "-"
 });
 
+// Strategy
+const strat = [
+  addField("id", newId),
+  lowerVal("id"),
+  addField("test", "test"),
+  capVal("occupation")
+];
+
 const cfg = {
-  input: Cards,
+  env: "dev",
+  input: data,
   output: [],
-  strategies: [
-    addField("id", newId),
-    addField("test", "test"),
-    capVal("faction"),
-    capVal("side"),
-    capVal("type")
-  ]
+  strategies: strat
 };
 
-const munged = Mungbean(cfg);
-console.log(munged[0]);
+Mungbean(cfg);
