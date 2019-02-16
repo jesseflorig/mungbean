@@ -43,7 +43,7 @@ const flow = fns => item => {
 // Add a new field
 const addField = (newKey, val) => item => {
   let newItem = item;
-  if (typeof item[newKey] !== "undefined") {
+  if (item[newKey]) {
     err(`Field '${newkey}' already exists - skipping add`);
   } else {
     newItem[newKey] = typeof val === "function" ? val(item) : val;
@@ -54,10 +54,10 @@ const addField = (newKey, val) => item => {
 // Remove a field
 const delField = key => item => {
   let newItem = item;
-  if (typeof item[key] === "undefined") {
-    err(`Field '${key}' doesn't exist - skipping delete`);
-  } else {
+  if (item[key]) {
     delete newItem[key];
+  } else {
+    err(`Field '${key}' doesn't exist - skipping delete`);
   }
   return newItem;
 };
