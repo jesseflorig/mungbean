@@ -1,12 +1,13 @@
-/* 
+/*
  *  Save your changes to rerun the munger
  *
  */
 
 const { map } = require("lodash");
-const { Cards } = require("netrunner-json");
+const Cards = require("../netrunner-json/cards.json");
 const { Mungbean, addField, capVal, genVal } = require("./mungbean");
 
+console.log("cards", Cards.length);
 const newId = genVal({
   fields: ["pack", "position"],
   delimiter: "-"
