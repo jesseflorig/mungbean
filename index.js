@@ -4,31 +4,29 @@
  */
 
 const { map } = require("lodash");
-const { Mungbean, addField, chgKey, genVal, lowerVal } = require("./mungbean");
-const { getAllCards } = require("./netrunnerUtils");
+const { Mungbean, addField, chgKey, lowerVal } = require("./mungbean");
+const { printKeys } = require("./util");
+const { getAllCards } = require("./netrunnerUtil");
 
 const cards = getAllCards();
-
-const newId = genVal({
-  fields: ["pack_code", "position"],
-  delimiter: "-"
-});
+printKeys(cards);
 
 const cfg = {
   env: "prod",
   input: cards,
   output: "../netrunner-json/cards.json",
   strategies: [
-    addField("id", newId),
+    chgKey("code", "id"),
+    chgKey("deck_limit", "limit"),
     chgKey("faction_code", "faction"),
     chgKey("faction_cost", "influence"),
-    chgKey("deck_limit", "limit"),
     chgKey("side_code", "side"),
     chgKey("pack_code", "pack"),
+    chgKey("position", "number"),
+    chgKey("title", "name"),
     chgKey("type_code", "type"),
     chgKey("quantity", "qty"),
-    chgKey("uniqueness", "unique"),
-    lowerVal("keywords")
+    chgKey("uniqueness", "unique")
   ]
 };
 

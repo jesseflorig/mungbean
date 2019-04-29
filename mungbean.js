@@ -4,7 +4,7 @@
 //   value - contents of a key
 const fs = require("fs");
 const { map } = require("lodash");
-const { dev, err, hr, log, plur } = require("./utils");
+const { dev, err, hr, log, plur } = require("./util");
 
 const defaultCfg = {
   env: "dev",
