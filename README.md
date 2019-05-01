@@ -11,6 +11,14 @@ Mungbean makes a couple common munging processes available:
 
 ### addField
 Add a field
+```javascript
+// Static string
+addField("newKey","newVal")
+
+// Function
+addField("computedField",() => 2 + 2)
+
+```
 
 ### capVal
 Capitalize a field value by key
