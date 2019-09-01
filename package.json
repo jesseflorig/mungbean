@@ -26,6 +26,7 @@
   "homepage": "https://github.com/jesseflorig/mungbean#readme",
   "dependencies": {
     "lodash": "^4.17.11",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "require-csv": "0.0.1"
   }
 }

@@ -4,30 +4,38 @@
  */
 
 const { map } = require("lodash");
-const { Mungbean, addField, chgKey, lowerVal } = require("./mungbean");
+const { Mungbean, chgKey, delField } = require("./mungbean");
 const { printKeys } = require("./util");
-const { getAllCards } = require("./netrunnerUtil");
+const { getMembers, getVendors } = require("./bkbgUtil");
 
-const cards = getAllCards();
-printKeys(cards);
+const members = getMembers();
+const vendors = getVendors();
 
-const cfg = {
+const memberCfg = {
   env: "prod",
-  input: cards,
-  output: "../netrunner-json/cards.json",
+  input: members,
+  output: "/Users/jesse/Dropbox/Documents/BKBG/Rotations/2019/members.json",
   strategies: [
-    chgKey("code", "id"),
-    chgKey("deck_limit", "limit"),
-    chgKey("faction_code", "faction"),
-    chgKey("faction_cost", "influence"),
-    chgKey("side_code", "side"),
-    chgKey("pack_code", "pack"),
-    chgKey("position", "number"),
-    chgKey("title", "name"),
-    chgKey("type_code", "type"),
-    chgKey("quantity", "qty"),
-    chgKey("uniqueness", "unique")
+    chgKey("Company ID", "id"),
+    chgKey("Company", "name"),
+    chgKey("Zip", "zip"),
+    delField("Booth#"),
+    delField("Member Type")
   ]
 };
 
-Mungbean(cfg);
+const vendorCfg = {
+  env: "prod",
+  input: vendors,
+  output: "/Users/jesse/Dropbox/Documents/BKBG/Rotations/2019/vendors.json",
+  strategies: [
+    chgKey("Company ID", "id"),
+    chgKey("Company", "name"),
+    chgKey("Booth#", "booth"),
+    delField("Member Type"),
+    delField("Zip")
+  ]
+};
+
+Mungbean(memberCfg);
+Mungbean(vendorCfg);
