@@ -18,7 +18,7 @@ const memberCfg = {
   strategies: [
     chgKey("Company ID", "id"),
     chgKey("Company", "name"),
-    chgKey("Zip", "zip"),
+    chgKey("State", "state"),
     delField("Booth#"),
     delField("Member Type")
   ]

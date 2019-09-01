@@ -4,7 +4,7 @@ const { filter, map, pick, uniqBy } = require("lodash");
 const { csvToJson } = require("./mungbean");
 
 //Constants
-const ATTRS = ["Company ID", "Company", "Booth#", "Member Type", "Zip"]
+const ATTRS = ["Company ID", "Company", "Booth#", "Member Type", "State"]
 const COMPANY_PATH = "/Users/jesse/Dropbox/Documents/BKBG/Rotations/2019/companies.csv";
 
 // Get all companies
